@@ -20,6 +20,7 @@ class cBibliotecario
 	public:
 		cBibliotecario(string nombre, string dni, string apellido, string fecha_nac, cLibrito* librito);
 		int get_indice();
+		cLibrito* get_libro();
 		~cBibliotecario() {}
 };
 

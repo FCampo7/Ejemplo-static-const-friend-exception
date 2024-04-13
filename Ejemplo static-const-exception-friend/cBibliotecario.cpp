@@ -14,3 +14,12 @@ int cBibliotecario::get_indice()
 {
     return librito->indice;
 }
+
+cLibrito* cBibliotecario::get_libro()
+{
+    return librito;
+}
+
+
+
+

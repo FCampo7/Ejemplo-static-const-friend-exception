@@ -7,7 +7,9 @@
 using namespace std;
 
 float dividir(float a, float b) {
+
 	if (b == 0) {
+        //exception* e = new exception("Error: No se puede dividir por 0.")
 		throw new exception("Error: No se puede dividir por 0.");
 	}
 	return a / b;
@@ -23,11 +25,15 @@ int main()
 
 	try {
 		cout << dividir(a, b) << endl;
-	}
-	catch (const exception *e) {
+    }
+    
+	catch (const exception *e) {//(...)
 		cout << e->what() << endl;
 		delete e;
 	}
+    catch (...) {
+        cout << "Error!" << endl;
+    }
 
     cLibrito* librito1 = new cLibrito();
     cLector* Lector1 = new cLector("Francisco", "44321603", "Cabrera", "2003-04-29", librito1);
@@ -58,11 +64,21 @@ int main()
     cout << "Id lector 1: " << Lector1->get_id() << endl;
     cout << "Id lector 2: " << Lector2.get_id() << endl;
 
-    cBibliotecario biblio("julio", "4352342", "Grondona", "1990-24-06", librito1);
-    cout<<"indice: "<<biblio.get_indice() << endl;
-
     delete Lector1;
-    delete librito1;
 
+    cout << "Cantidad de lectores: " << cLector::cant_lectores << endl;
+    cout << "Contador de statics: " << cLector::static_id << endl;
+    cLector* Lector3 = new cLector("Francisco", "44321603", "Cabrera", "2003-04-29", librito1);
+    cout << "Cantidad de lectores: " << cLector::cant_lectores << endl;
+    cout << "Contador de statics: " << cLector::static_id << endl;
+    cBibliotecario biblio("julio", "4352342", "Grondona", "1990-24-06", librito1);
+    cout<<"indice: "<<biblio.get_libro()->to_string() << endl;//puedo acceder a los metodos de libro desde biblio
+    librito1->get_indice();
+    biblio.get_indice();
+    
+    delete Lector3;
+
+    delete librito1;
+    
 	return 0;
 }

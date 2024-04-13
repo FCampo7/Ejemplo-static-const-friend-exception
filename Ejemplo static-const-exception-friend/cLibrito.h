@@ -7,6 +7,7 @@ class cBibliotecario;
 
 class cLibrito
 {
+
 private:
 	string nombre;
 	int cant_pags;

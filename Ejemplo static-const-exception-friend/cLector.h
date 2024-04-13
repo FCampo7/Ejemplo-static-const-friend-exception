@@ -10,7 +10,8 @@ using namespace std;
 class cLector
 {
 private:
-	static int static_id; // Incrementador de IDs
+	
+	//static int static_id; // Incrementador de IDs
 	const int id; // Identificación del lector en la biblioteca
 	const string dni;
 
@@ -23,6 +24,9 @@ private:
 	tm convertirFecha();
 public:
 	cLector(string nombre, string dni, string apellido, string fecha_nac,cLibrito* librito);
+	static int cant_lectores;
+
+	static int static_id; // Incrementador de IDs
 	string get_dni();
 	string get_nombre();
 	string get_apellido();

@@ -2,8 +2,8 @@
 
 #include "cLector.h"
 
-int cLector::static_id = 0;
-
+int cLector::static_id = 0;//Primero hay 0 lectores en la biblioteca
+int cLector::cant_lectores = 0;
 tm cLector::convertirFecha()
 {
     // Variables para almacenar año, mes y día como enteros
@@ -24,7 +24,7 @@ tm cLector::convertirFecha()
     return fnac;
 }
 
-cLector::cLector(string nombre, string dni, string apellido, string fecha_nac, cLibrito* librito) : dni(dni), id(static_id++)
+cLector::cLector(string nombre, string dni, string apellido, string fecha_nac, cLibrito* librito) : dni(dni), id(static_id++)//los atributos constante son inicializados por lista de inicializacion, con ":" a continuacion del constructor
 {
     this->nombre = nombre;
     this->apellido = apellido;
@@ -32,6 +32,7 @@ cLector::cLector(string nombre, string dni, string apellido, string fecha_nac, c
     this->email = "0";
     this->celular = "0";
     this->librito = librito;
+    cant_lectores++;
 }
 
 
@@ -153,6 +154,14 @@ const int cLector::get_id()
     return this->id;
 }
 
-cLector::~cLector(){}
+cLector::~cLector() {
+    cant_lectores--;
+}
  
+
+
+
+
+
+
 

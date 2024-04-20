@@ -31,7 +31,8 @@ cLector::cLector(string nombre, string dni, string apellido, string fecha_nac, c
     this->fecha_nac = fecha_nac;
     this->email = "0";
     this->celular = "0";
-    this->librito = librito;
+    //this->librito.push_back(librito);
+    this->llibro.push_back(librito);
     cant_lectores++;
 }
 
@@ -74,7 +75,13 @@ string cLector::to_string()
     ss << "Su email es: " << email << endl;
     ss << "Nacio el: " << fecha_nac << endl;
     ss << "El libro que esta leyendo es: "<<endl;
-    ss << librito->to_string() << endl;
+    /*
+    for (int i = 0; i < librito.size(); i++) {
+        ss << librito[i]->to_string() << endl;
+    }
+    */
+    for (list<cLibrito*>::iterator it = llibro.begin(); it != llibro.end(); it++)
+        ss << (*it)->to_string() << endl;
     
     return ss.str();
 }
@@ -86,7 +93,64 @@ void cLector::imprimir()
 
 void cLector::set_libro(cLibrito* New_librito)
 {
-    this->librito = New_librito;
+    //this->librito.push_back(New_librito);
+
+    this->llibro.push_back(New_librito);
+}
+
+void cLector::quitar_libro(cLibrito* Del_libro) {
+    /*
+    vector<cLibrito*>::iterator it = this->librito.begin();
+    bool borrado = false;
+    
+    while (it != this->librito.end()) {
+        if ((*it)->get_nombre() == Del_libro->get_nombre()) {
+            this->librito.erase(it);
+            borrado = true;
+            break;
+        }
+        it++;
+    }
+
+    if (!borrado) {
+        throw new exception("Error: No se encontro el libro");
+    }
+    */
+
+    // lista
+    list<cLibrito*>::iterator it = this->llibro.begin();
+    bool borrado = false;
+
+    while (it != this->llibro.end()) {
+
+        if ((*it)->get_nombre() == Del_libro->get_nombre()) {
+            this->llibro.erase(it);
+            borrado = true;
+            break;
+        }
+        it++;
+    }
+
+    if(!borrado){
+        throw new exception("Error: No se encontro el libro");
+    }
+}
+
+cLibrito* cLector::get_libro(unsigned int index){
+    // return librito[index];
+
+    list<cLibrito*>::iterator it = this->llibro.begin();
+    unsigned int i = 0;
+
+    while (i < index) { // < o <= ???
+        it++;
+        i++;
+        if (it == this->llibro.end()) {
+            throw new exception("Error: No se encontro el libro");
+        }
+    }
+
+    return *it;
 }
 
 int cLector::get_edad()
@@ -138,14 +202,31 @@ bool cLector::set_celular(string n_Celular)
     return flag;
 }
 
+/// <summary>
+/// Lee el primer libro de la lista
+/// </summary>
+/// <param name="paginas_leidas"></param>
+/// <returns></returns>
 bool cLector::leer_libro(int paginas_leidas)
 {
-    bool flag = false;
-    if (paginas_leidas + this->librito->get_indice() >= this->librito->get_Cant_Pags())
+    /*bool flag = false;
+    if (paginas_leidas + this->librito[0]->get_indice() >= this->librito[0]->get_Cant_Pags())
     {
-        this->librito->set_indice(this->librito->get_Cant_Pags());
+        this->librito[0]->set_indice(this->librito[0]->get_Cant_Pags());
+        quitar_libro(librito[0]);
         flag = true;
-    }else this->librito->set_indice(paginas_leidas + this->librito->get_indice());
+    }else this->librito[0]->set_indice(paginas_leidas + this->librito[0]->get_indice());
+    return flag;*/
+
+    bool flag = false;
+    list<cLibrito*>::iterator it=this->llibro.begin();
+    if (paginas_leidas + (*it)->get_indice() >= (*it)->get_Cant_Pags())
+    {
+        (*it)->set_indice((*it)->get_Cant_Pags());
+        quitar_libro((*it));
+        flag = true;
+    }
+    else (*it)->set_indice(paginas_leidas + (*it)->get_indice());
     return flag;
 }
 
@@ -158,10 +239,3 @@ cLector::~cLector() {
     cant_lectores--;
 }
  
-
-
-
-
-
-
-

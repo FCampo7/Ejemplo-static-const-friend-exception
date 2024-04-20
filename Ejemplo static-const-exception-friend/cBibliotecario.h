@@ -4,8 +4,6 @@
 
 using namespace std;
 
-// Hacer un metodo amigo
-
 class cBibliotecario
 {
 	private:

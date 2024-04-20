@@ -17,7 +17,8 @@ float dividir(float a, float b) {
 
 int main()
 {
-	float a, b;
+	/*
+    float a, b;
 	cout << "ingrese el valor de a: ";
 	cin >> a;
 	cout << "ingrese el valor de b: ";
@@ -33,7 +34,7 @@ int main()
 	}
     catch (...) {
         cout << "Error!" << endl;
-    }
+    }*/
 
     cLibrito* librito1 = new cLibrito();
     cLector* Lector1 = new cLector("Francisco", "44321603", "Cabrera", "2003-04-29", librito1);
@@ -75,6 +76,19 @@ int main()
     cout<<"indice: "<<biblio.get_libro()->to_string() << endl;//puedo acceder a los metodos de libro desde biblio
     librito1->get_indice();
     biblio.get_indice();
+    Lector3->set_libro(&librito2); // deberia llamarse agregar_libro en lugar de set_libro
+    Lector3->imprimir();
+
+    try {
+        cout<<"Nombre del libro en la pos 1: "<<Lector3->get_libro(1)->get_nombre()<<endl;
+
+        Lector3->quitar_libro(librito1);
+
+        cout << "Nombre del libro en la pos 0: " << Lector3->get_libro(0)->get_nombre() << endl;
+    }
+    catch (const exception* e) {
+        cout << e->what() << endl;
+    }
     
     delete Lector3;
 

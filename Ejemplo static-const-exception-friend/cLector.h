@@ -3,6 +3,8 @@
 #include <sstream>
 #include <iostream>
 #include <ctime>
+#include <vector>
+#include <list>
 #include "cLibrito.h"
 
 using namespace std;
@@ -20,7 +22,8 @@ private:
 	string email;
 	string celular;
 	string fecha_nac; // "2024-04-04" 
-	cLibrito* librito;
+	//vector<cLibrito*> librito;
+	list<cLibrito*> llibro;
 	tm convertirFecha();
 public:
 	cLector(string nombre, string dni, string apellido, string fecha_nac,cLibrito* librito);
@@ -36,6 +39,8 @@ public:
 	string to_string();
 	void imprimir();
 	void set_libro(cLibrito* New_librito);
+	void quitar_libro(cLibrito* Del_libro);
+	cLibrito* get_libro(unsigned int index);
 	/// <summary>
 	/// convierte la fecha string en variables enteras para operar con libreria ctime
 	/// </summary>
